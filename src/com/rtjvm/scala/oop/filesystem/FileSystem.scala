@@ -3,8 +3,6 @@ package com.rtjvm.scala.oop.filesystem
 import com.rtjvm.scala.oop.commands.Command
 import com.rtjvm.scala.oop.files.Directory
 
-import java.util.Scanner
-
 object FileSystem extends App {
 
   val root = Directory.ROOT

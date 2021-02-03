@@ -1,5 +1,5 @@
 package com.rtjvm.scala.oop.commands
-import com.rtjvm.scala.oop.files.{DirEntry, Directory}
+import com.rtjvm.scala.oop.files.{DirEntry, DirEntryUtils, Directory}
 import com.rtjvm.scala.oop.filesystem.State
 
 import scala.annotation.tailrec
@@ -12,11 +12,7 @@ class Cd(dir: String) extends Command {
     val pwd = state.workingDirectory
 
     // 2. find the absolute path of the directory to cd to
-    val absolutePath = {
-      if(dir.startsWith(Directory.SEPARATOR)) dir
-      else if(pwd.isRoot) pwd.path + dir
-      else pwd.path + Directory.SEPARATOR + dir
-    }
+    val absolutePath = DirEntryUtils.absolutePath(dir, pwd)
 
     // 3. given the path, find the directory to cd to
     val destinationDirectory = doFindEntry(root, absolutePath)

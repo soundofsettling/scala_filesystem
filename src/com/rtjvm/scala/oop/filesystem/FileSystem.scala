@@ -8,14 +8,13 @@ import java.util.Scanner
 object FileSystem extends App {
 
   val root = Directory.ROOT
-  var state = State(root, root)   // ugly. using var just to make this stateful without
-                                  // using full functional programming
-  val scanner = new Scanner(System.in)
+  val initialState = State(root, root)
+  initialState.show
 
-  while (true) {
-    state.show
-    val input = scanner.nextLine()
-    state = Command.from(input).apply(state)
-  }
+  io.Source.stdin.getLines().foldLeft(initialState)((currState, newLine) => {
+    val newState = Command.from(newLine)(currState)
+    newState.show
+    newState
+  })
 
 }

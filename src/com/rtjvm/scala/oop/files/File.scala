@@ -1,6 +1,6 @@
 package com.rtjvm.scala.oop.files
 
-class File(override val parentPath: String, override val name: String, contents: String) extends DirEntry(parentPath, name) {
+class File(override val parentPath: String, override val name: String, val contents: String) extends DirEntry(parentPath, name) {
 
   override def asDirectory: Directory = throw new FSException("A file cannot be converted to a directory")
 
@@ -10,6 +10,12 @@ class File(override val parentPath: String, override val name: String, contents:
   override def asFile: File = this
 
   override def getType: String = "File"
+
+  def setContents(newContents: String): File =
+    new File(parentPath, name, newContents)
+
+  def appendContents(newContents: String): File =
+    setContents(contents + "\n" + newContents)
 
 }
 
